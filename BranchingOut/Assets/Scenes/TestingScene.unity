@@ -614,6 +614,11 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 8
+  spawner: {fileID: 340668078}
+  spawnPoint: {fileID: 533750437}
+  seed: {fileID: 3190221490569273873, guid: 623849d67461e624d9705a67553bb32d, type: 3}
+  maxSize: 8
+  maxDistance: 4
 --- !u!70 &770397124
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -934,7 +939,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 115b149c02a2f2a41b55f09d10e0394a, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 1fbc94da0de3fac47ba820ae0fb90e34, type: 2}
 --- !u!4 &1848487282
 Transform:
   m_ObjectHideFlags: 0
