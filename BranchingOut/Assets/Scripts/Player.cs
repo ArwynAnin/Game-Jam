@@ -5,7 +5,7 @@ public class Player : PlayerMovement
     #region Variables
     [Space]
     [Header("Platform Settings")]
-    [SerializeField] private SpawnManager spawner;
+    [SerializeField] private RootSpawner spawner;
     [SerializeField] private Transform spawnPoint;
     [Space]
     [SerializeField] private GameObject seed;
@@ -14,13 +14,22 @@ public class Player : PlayerMovement
     [Space]
     [SerializeField] private float maxSize;
     [SerializeField] private float maxDistance;
-
-    private Platforms plant;
     #endregion
 
     private void Update()
     {
         SpawnRoots();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.gameObject.CompareTag("Border")) return;
+
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+
+        Application.Quit();
     }
 
     #region Spawning Methods
@@ -33,6 +42,7 @@ public class Player : PlayerMovement
             plant.transform.parent = null;
             Rigidbody2D tempRb = plant.GetComponent<Rigidbody2D>();
             tempRb.bodyType = RigidbodyType2D.Dynamic;
+            canSpawn = true;
         }
 
         SpawnMid();
@@ -42,9 +52,11 @@ public class Player : PlayerMovement
 
     private void SpawnTop()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha2)) GetSeeds();
+        if (Input.GetKeyDown(KeyCode.Alpha2) && canSpawn) GetSeeds();
 
         if (!Input.GetKey(KeyCode.Alpha2) || plant == null) return;
+
+        canSpawn = false;
 
         Vector3 tilt = plant.transform.localEulerAngles;
         tilt.z = 45;
@@ -58,16 +70,18 @@ public class Player : PlayerMovement
 
         // adjust position
         Vector2 position = plant.transform.localPosition;
-        position.x = Mathf.Clamp(position.x + offset / 2, 0, maxDistance);
-        position.y = Mathf.Clamp(position.y + offset / 2, 0, maxDistance);
+        position.x = Mathf.Clamp(position.x + offset / 2, 0, maxDistance - 1);
+        position.y = Mathf.Clamp(position.y + offset / 2, 0, maxDistance - 1);
         plant.transform.localPosition = position;
     }
 
     private void SpawnBot()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha3)) GetSeeds();
+        if (Input.GetKeyDown(KeyCode.Alpha3) && canSpawn) GetSeeds();
 
         if (!Input.GetKey(KeyCode.Alpha3) || plant == null) return;
+
+        canSpawn = false;
 
         Vector3 tilt = plant.transform.localEulerAngles;
         tilt.z = -45;
@@ -81,17 +95,18 @@ public class Player : PlayerMovement
 
         // adjust position
         Vector2 position = plant.transform.localPosition;
-        position.x = Mathf.Clamp(position.x + offset / 2, 0, maxDistance);
-        position.y = Mathf.Clamp(position.y - offset / 2, -maxDistance, 0);
+        position.x = Mathf.Clamp(position.x + offset / 2, 0, maxDistance - 1);
+        position.y = Mathf.Clamp(position.y - offset / 2, -maxDistance + 1, 0);
         plant.transform.localPosition = position;
     }
 
     private void SpawnMid()
     {
-
-        if (Input.GetKeyDown(KeyCode.Alpha1)) GetSeeds();
+        if (Input.GetKeyDown(KeyCode.Alpha1) && canSpawn) GetSeeds();
 
         if (!Input.GetKey(KeyCode.Alpha1) || plant == null) return;
+
+        canSpawn = false;
 
         Vector3 tilt = plant.transform.localEulerAngles;
         tilt.z = 0;

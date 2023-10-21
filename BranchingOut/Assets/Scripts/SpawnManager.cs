@@ -2,15 +2,29 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [Space]
-    [Header("Spawn Settings")]
-    [SerializeField] private Platforms platforms;
-    [Space]
     [SerializeField] protected int maxSpawnCount;
 
-    private Platforms[] platformsSpawned;
+    protected Platforms[] platformsSpawned;
+    private GameObject[] islandsSpawned;
 
-    private void Awake()
+    // this is the real platform spawner
+    protected void IslandSpawner(GameObject floatingIslands, GameObject checkPoints)
+    {
+        int x = 18;
+        islandsSpawned = new GameObject[maxSpawnCount];
+        for (int spawnCount = 3; spawnCount < maxSpawnCount; spawnCount++)
+        {
+            float y = Random.Range(-4.75f, 2.15f);
+            islandsSpawned[spawnCount] = spawnCount%5 == 0 ? Instantiate(checkPoints, this.transform) : Instantiate(floatingIslands, this.transform);
+            islandsSpawned[spawnCount].transform.position = new Vector2(x,y);
+
+            x += 12;
+        }
+
+    }
+
+    // made a mistake with the name, was supposed to be root spawner but it does the job
+    protected void PlatformSpawner(Platforms platforms)
     {
         platformsSpawned = new Platforms[maxSpawnCount];
         for (int spawnCount = 0; spawnCount < maxSpawnCount; spawnCount++)
@@ -18,14 +32,5 @@ public class SpawnManager : MonoBehaviour
             platformsSpawned[spawnCount] = Instantiate(platforms, this.transform);
             platformsSpawned[spawnCount].Despawn();
         }
-    }
-
-    public Platforms GetSeed()
-    {
-        for (int current = 0; current < platformsSpawned.Length; current++)
-        {
-            if (!platformsSpawned[current].IsActive && platformsSpawned[current] != null) return platformsSpawned[current];
-        }
-        return null;
     }
 }
