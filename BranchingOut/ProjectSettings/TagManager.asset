@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Floating Island
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
@@ -38,6 +40,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+<<<<<<< Updated upstream
+=======
+  - name: Background
+    uniqueID: 3371786621
+    locked: 0
+  - name: Scenery
+    uniqueID: 688814215
+    locked: 0
+>>>>>>> Stashed changes
   - name: Default
     uniqueID: 0
     locked: 0
