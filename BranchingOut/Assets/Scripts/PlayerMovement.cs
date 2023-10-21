@@ -10,22 +10,10 @@ public class PlayerMovement : MonoBehaviour
     [Space]
     [SerializeField] private LayerMask layer;
 
-    [Space]
-    [Header ("Platform Settings")]
-    [SerializeField] private SpawnManager spawner;
-    [SerializeField] private Transform spawnPoint;
-    [Space]
-    [SerializeField] private GameObject seed;
-    [Space]
-    [SerializeField] private float maxSize;
-    [SerializeField] private float maxDistance;
-
-
     private CapsuleCollider2D collider;
     private Rigidbody2D player;
-    private Platforms plant;
 
-    private bool spawning;
+    protected bool spawning;
     #endregion
 
     #region Unity Methods
@@ -38,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        SpawnRoots();
+        //SpawnRoots();
     }
 
     private void FixedUpdate()
@@ -48,50 +36,10 @@ public class PlayerMovement : MonoBehaviour
     }
     #endregion
 
-    #region Spawning Methods
-    private void SpawnRoots()
-    {
-        spawning = Input.GetKey(KeyCode.Q) ? true : false;
-
-        float offset = 0.1f;
-
-        if (!spawning && plant != null)
-        {
-            plant.transform.parent = null;
-            Rigidbody2D tempRb = plant.GetComponent<Rigidbody2D>();
-            tempRb.bodyType = RigidbodyType2D.Dynamic;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q)) GetSeeds();
-
-        if (!Input.GetKey(KeyCode.Q) || plant == null) return;
-
-        // adjust size
-        Vector2 size = plant.transform.localScale;
-        size.x = Mathf.Clamp(size.x + offset, 0, maxSize);
-        size.y = 0.25f;
-        plant.transform.localScale = size;
-
-        // adjust position
-        Vector2 position = plant.transform.localPosition;
-        position.x = Mathf.Clamp(position.x + offset / 2, 0, maxDistance);
-        plant.transform.localPosition = position;
-    }
-    private void GetSeeds()
-    {
-        plant = spawner.GetSeed();
-        if (plant == null) return;
-        plant.Spawn();
-        plant.transform.position = spawnPoint.position;
-        plant.transform.parent = spawnPoint;
-        plant.transform.localScale = Vector2.one;
-    }
-    #endregion
-
     #region Movements
     private void HorizontalMovement()
     {
-        if (spawning || !IsGrounded()) return;
+        if (spawning) return;
 
         // set horizontal motion so to not affect vertical motion
         Vector2 motion = player.velocity;
@@ -110,8 +58,8 @@ public class PlayerMovement : MonoBehaviour
     private bool IsGrounded()
     {
         Vector2 center = collider.bounds.center;
-        float offset = 0.25f;
-        float detectionDistance = collider.bounds.extents.y + offset;
+        float ray = 0.25f;
+        float detectionDistance = collider.bounds.extents.y + ray;
 
         // detect ground layer
         RaycastHit2D hit = Physics2D.Raycast(center, Vector2.down, detectionDistance, layer);
