@@ -2702,6 +2702,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sfx: {fileID: 8300000, guid: d6980edd5d14fa1469481f1ad17cbbde, type: 3}
   audiosource: {fileID: 415708964}
+  sfxV: {fileID: 11400000, guid: 0445d452c6fc2d643b33f2c8186aaa0e, type: 2}
   delay: 1.5
 --- !u!114 &1112224454
 MonoBehaviour:
@@ -4655,9 +4656,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1899262286}
-  sfxSource: {fileID: 415708964}
-  bgm_volume: 0
-  sfx_volume: 0
+  bgm: {fileID: 11400000, guid: e8266027e37fdf2488dac51fee395f4b, type: 2}
+  sfx: {fileID: 11400000, guid: 0445d452c6fc2d643b33f2c8186aaa0e, type: 2}
   bgm_slider: {fileID: 322432386}
   sfx_slider: {fileID: 1412772383}
 --- !u!1 &1903946237

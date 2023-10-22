@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 209648903}
   - component: {fileID: 209648904}
   - component: {fileID: 209648905}
+  - component: {fileID: 209648906}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -569,6 +570,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &209648906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209648898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c994150e135aec48abebcee187ecab8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgm: {fileID: 11400000, guid: e8266027e37fdf2488dac51fee395f4b, type: 2}
 --- !u!1 &253004020
 GameObject:
   m_ObjectHideFlags: 0
@@ -6225,8 +6239,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0024501085, y: -0.0021500587, z: 0}
-    m_Extent: {x: 3.06715, y: 3.06655, z: 0}
+    m_Center: {x: -0.00274992, y: 0.000100016594, z: 0}
+    m_Extent: {x: 3.06125, y: 3.0615, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -6307,8 +6321,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0024999976, y: -0.005300045, z: 0}
-    m_Extent: {x: 1.6424, y: 1.6429, z: 0}
+    m_Center: {x: -0.0056500435, y: -0.0030500293, z: 0}
+    m_Extent: {x: 1.63765, y: 1.64095, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -6949,8 +6963,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0015499592, y: 0.0020501614, z: 0}
-    m_Extent: {x: 6.56715, y: 6.5619497, z: 0}
+    m_Center: {x: -0.00069999695, y: 0.0031499863, z: 0}
+    m_Extent: {x: 6.5675, y: 6.56525, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0

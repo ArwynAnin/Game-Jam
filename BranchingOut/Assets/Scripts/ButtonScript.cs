@@ -7,8 +7,13 @@ public class ButtonScript : MonoBehaviour
 {
     public AudioClip sfx;
     public AudioSource audiosource;
+    public Volumes sfxV;
     public float delay = 1.0f;
 
+    private void Update()
+    {
+        audiosource.volume = sfxV.volume;
+    }
     public void startgame()
     {
         audiosource.PlayOneShot(sfx);

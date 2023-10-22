@@ -1,35 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { get; set; }
     public AudioSource audioSource;
-    public AudioSource sfxSource;
-    public float bgm_volume, sfx_volume;
+    public Volumes bgm, sfx;
     public Slider bgm_slider, sfx_slider;
 
     private void Awake()
     {
-        bgm_volume = audioSource.volume;
-        sfx_volume = sfxSource.volume;
-        bgm_slider.value = bgm_volume;
-        sfx_slider.value = sfx_volume;
+        if (instance != null && instance != this) { Destroy(this); }
+        else { instance = this; }
 
-        instance = this;
-        DontDestroyOnLoad(gameObject);
+        bgm.volume = audioSource.volume;
+        sfx.volume = 1;
+        bgm_slider.value = bgm.volume;
+        sfx_slider.value = sfx.volume;
+    }
+
+    private void Update()
+    {
+        audioSource.volume = bgm.volume;
     }
 
     public void ChangeBGMVolume()
     {
-        bgm_volume = bgm_slider.value;
-        audioSource.volume = bgm_volume;
+        bgm.volume = bgm_slider.value;
+        audioSource.volume = bgm.volume;
     }
     public void ChangeSFXVolume()
     {
-        sfx_volume = sfx_slider.value;
-        sfxSource.volume = sfx_volume;
+        sfx.volume = sfx_slider.value;
     }
 }
