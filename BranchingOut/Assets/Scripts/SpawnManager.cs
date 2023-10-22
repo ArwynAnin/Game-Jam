@@ -3,22 +3,23 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] protected int maxSpawnCount;
+    [SerializeField] protected Transform parent;
 
     protected Platforms[] platformsSpawned;
-    private GameObject[] islandsSpawned;
+    protected FloatingIslands[] islandsSpawned;
+    protected CheckPoint checkPointSpawned;
 
     // this is the real platform spawner
-    protected void IslandSpawner(GameObject floatingIslands, GameObject checkPoints)
+    protected void IslandSpawner(FloatingIslands floatingIslands, CheckPoint checkPoints)
     {
-        int x = 18;
-        islandsSpawned = new GameObject[maxSpawnCount];
-        for (int spawnCount = 3; spawnCount < maxSpawnCount; spawnCount++)
-        {
-            float y = Random.Range(-4.75f, 2.15f);
-            islandsSpawned[spawnCount] = spawnCount%5 == 0 ? Instantiate(checkPoints, this.transform) : Instantiate(floatingIslands, this.transform);
-            islandsSpawned[spawnCount].transform.position = new Vector2(x,y);
+        checkPointSpawned = Instantiate(checkPoints, parent);
+        checkPointSpawned.Despawn();
 
-            x += 12;
+        islandsSpawned = new FloatingIslands[maxSpawnCount];
+        for (int spawnCount = 0; spawnCount < maxSpawnCount; spawnCount++)
+        {
+            islandsSpawned[spawnCount] = Instantiate(floatingIslands, parent);
+            islandsSpawned[spawnCount].Despawn();
         }
 
     }
@@ -29,7 +30,7 @@ public class SpawnManager : MonoBehaviour
         platformsSpawned = new Platforms[maxSpawnCount];
         for (int spawnCount = 0; spawnCount < maxSpawnCount; spawnCount++)
         {
-            platformsSpawned[spawnCount] = Instantiate(platforms, this.transform);
+            platformsSpawned[spawnCount] = Instantiate(platforms, parent);
             platformsSpawned[spawnCount].Despawn();
         }
     }

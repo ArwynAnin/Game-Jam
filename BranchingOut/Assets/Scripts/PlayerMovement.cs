@@ -9,14 +9,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce;
     [Space]
     [SerializeField] private LayerMask layer;
+    [Space]
+    [SerializeField] protected GameObject deathParticles;
 
     private CapsuleCollider2D collider;
-    private Rigidbody2D player;
+    protected Rigidbody2D player;
 
     protected Platforms plant;
 
     protected bool spawning;
     protected bool canSpawn;
+    protected bool isDead;
     #endregion
 
     #region Unity Methods
@@ -24,8 +27,10 @@ public class PlayerMovement : MonoBehaviour
     {
         player = GetComponent<Rigidbody2D>();
         collider = GetComponent<CapsuleCollider2D>();
+        deathParticles.SetActive(false);
         canSpawn = true;
         spawning = false;
+        isDead = false;
     }
 
     private void FixedUpdate()
@@ -38,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     #region Movements
     private void HorizontalMovement()
     {
-        if (spawning && plant != null) return;
+        if (spawning && plant != null || isDead) return;
 
         // set horizontal motion so to not affect vertical motion
         Vector2 motion = player.velocity;
@@ -49,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
     private void VerticalMovement(bool isGrounded)
     {
         // return if not grounded or not pressing space
-        if (!isGrounded || !Input.GetButtonDown("Jump") || spawning) return;
+        if (!isGrounded || !Input.GetButtonDown("Jump") || spawning || isDead) return;
         player.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 

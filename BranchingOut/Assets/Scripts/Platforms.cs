@@ -12,6 +12,12 @@ public class Platforms : MonoBehaviour
         if (!other.gameObject.CompareTag("MainCamera")) return;
         Despawn();
     }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Floating Island")) return;
+        Rigidbody2D rb = this.gameObject.GetComponent<Rigidbody2D>();
+        rb.bodyType = RigidbodyType2D.Kinematic;
+    }
 
     public void Despawn()
     {

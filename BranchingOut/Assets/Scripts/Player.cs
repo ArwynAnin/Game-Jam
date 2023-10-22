@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : PlayerMovement
 {
@@ -24,12 +26,17 @@ public class Player : PlayerMovement
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag("Border")) return;
+        StartCoroutine(PlayerDeath());
+    }
 
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #endif
-
-        Application.Quit();
+    private IEnumerator PlayerDeath()
+    {
+        deathParticles.SetActive(true);
+        isDead = false;
+        player.velocity = Vector2.zero;
+        player.bodyType = RigidbodyType2D.Static;
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(2);
     }
 
     #region Spawning Methods
@@ -130,7 +137,6 @@ public class Player : PlayerMovement
         if (plant == null) return;
         plant.Spawn();
         plant.transform.position = spawnPoint.position;
-        plant.transform.parent = spawnPoint;
         plant.transform.localScale = Vector2.one;
     }
     #endregion
