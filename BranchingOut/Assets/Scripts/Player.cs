@@ -52,15 +52,17 @@ public class Player : PlayerMovement
             canSpawn = true;
         }
 
-        SpawnMid();
-        SpawnTop();
-        SpawnBot();
+        if (Input.GetKeyDown(KeyCode.Alpha1) || 
+            Input.GetKeyDown(KeyCode.Alpha2) || 
+            Input.GetKeyDown(KeyCode.Alpha3)) GetSeeds();
+
+        if (Input.GetKey(KeyCode.Alpha1)) SpawnMid();
+        else if (Input.GetKey(KeyCode.Alpha2)) SpawnTop();
+        else if (Input.GetKey(KeyCode.Alpha3)) SpawnBot();
     }
 
     private void SpawnTop()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha2) && canSpawn) GetSeeds();
-
         if (!Input.GetKey(KeyCode.Alpha2) || plant == null) return;
 
         canSpawn = false;
@@ -84,8 +86,6 @@ public class Player : PlayerMovement
 
     private void SpawnBot()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha3) && canSpawn) GetSeeds();
-
         if (!Input.GetKey(KeyCode.Alpha3) || plant == null) return;
 
         canSpawn = false;
@@ -109,8 +109,6 @@ public class Player : PlayerMovement
 
     private void SpawnMid()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && canSpawn) GetSeeds();
-
         if (!Input.GetKey(KeyCode.Alpha1) || plant == null) return;
 
         canSpawn = false;
@@ -129,6 +127,11 @@ public class Player : PlayerMovement
         Vector2 position = plant.transform.localPosition;
         position.x = Mathf.Clamp(position.x + offset / 2, 0, maxDistance);
         plant.transform.localPosition = position;
+    }
+
+    private IEnumerator Enlarge()
+    {
+        yield return null;
     }
 
     private void GetSeeds()

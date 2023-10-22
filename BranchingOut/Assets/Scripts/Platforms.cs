@@ -7,9 +7,9 @@ public class Platforms : MonoBehaviour
         get { return gameObject.activeSelf; } 
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.gameObject.CompareTag("MainCamera")) return;
+        if (!other.gameObject.CompareTag("MainCamera") || !other.gameObject.CompareTag("Border")) return;
         Despawn();
     }
     private void OnCollisionEnter2D(Collision2D other)

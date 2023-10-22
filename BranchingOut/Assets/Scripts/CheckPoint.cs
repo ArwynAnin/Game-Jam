@@ -3,6 +3,7 @@ using UnityEngine;
 public class CheckPoint : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private Tree tree;
     Rigidbody2D rb;
 
     public bool IsActive
@@ -18,6 +19,7 @@ public class CheckPoint : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("MainCamera")) return;
+        tree.Spawn();
         Despawn();
     }
 

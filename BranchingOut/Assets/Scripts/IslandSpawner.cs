@@ -8,6 +8,9 @@ public class IslandSpawner : SpawnManager
     [SerializeField] private float spawnDelay;
     [SerializeField] private int checkPointLevel;
 
+    Vector2 target;
+    Vector2 lastSpawned;
+
     private void Awake()
     {
         IslandSpawner(floatingIslands, checkPoints);
@@ -15,7 +18,9 @@ public class IslandSpawner : SpawnManager
 
     private void Start()
     {
-        StartCoroutine("SpawnIslands");
+
+        lastSpawned = Vector2.zero;
+        StartCoroutine(SpawnIslands());
     }
 
     private IEnumerator SpawnIslands()
@@ -24,7 +29,7 @@ public class IslandSpawner : SpawnManager
         int current = 3;
         while (true)
         {
-            if (current % 10 == 0) CheckPoint().Spawn();
+            if (current % checkPointLevel == 0) CheckPoint().Spawn();
             else GetIsland().Spawn();
 
             yield return new WaitForSeconds(spawnDelay);
@@ -43,16 +48,28 @@ public class IslandSpawner : SpawnManager
 
     private FloatingIslands SetPosition(int current)
     {
-        Vector2 target = parent.position;
+        target = parent.position;
+        target.x = parent.position.x;
         target.y = Random.Range(2.5f, -3);
+
         islandsSpawned[current].transform.position = target;
+        if (lastSpawned == Vector2.zero && current == 0) return islandsSpawned[current];
+
+        target.x = lastSpawned.x + Random.Range(6.5f, 10);
+        islandsSpawned[current].transform.position = target;
+
+        lastSpawned = target;
         return islandsSpawned[current];
     }
 
     private CheckPoint CheckPoint()
     {
+        lastSpawned = target;
         if (checkPointSpawned.IsActive || checkPointSpawned == null) return null;
-        checkPointSpawned.transform.position = parent.position; 
+        target.x = lastSpawned.x + 10;
+        lastSpawned.x += 10;
+        checkPointSpawned.transform.position = lastSpawned;
+
         return checkPointSpawned;
     }
 }
