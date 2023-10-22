@@ -17,6 +17,9 @@ public class AudioManager : MonoBehaviour
         sfx_volume = sfxSource.volume;
         bgm_slider.value = bgm_volume;
         sfx_slider.value = sfx_volume;
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public void ChangeBGMVolume()
