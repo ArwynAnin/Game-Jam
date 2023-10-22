@@ -22,7 +22,6 @@ public class ButtonScript : MonoBehaviour
     public void gameInfo()
     {
         audiosource.PlayOneShot(sfx);
-        StartCoroutine(delayLoad(4));
     }
 
     public void mainMenu()
