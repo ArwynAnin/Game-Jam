@@ -10,6 +10,8 @@ public class ButtonScript : MonoBehaviour
     public Volumes sfxV;
     public float delay = 1.0f;
 
+    public Animator transtionAnim;
+
     private void Update()
     {
         audiosource.volume = sfxV.volume;
@@ -47,6 +49,7 @@ public class ButtonScript : MonoBehaviour
 
     private IEnumerator delayLoad(int sceneIndex)
     {
+        transtionAnim.SetTrigger("transition");
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(sceneIndex);
     }
