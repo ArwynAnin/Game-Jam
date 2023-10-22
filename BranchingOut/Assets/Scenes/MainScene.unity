@@ -6239,8 +6239,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.00274992, y: 0.000100016594, z: 0}
-    m_Extent: {x: 3.06125, y: 3.0615, z: 0}
+    m_Center: {x: 0.007600069, y: 0.00090003014, z: 0}
+    m_Extent: {x: 3.0618, y: 3.0672, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -6321,8 +6321,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.0056500435, y: -0.0030500293, z: 0}
-    m_Extent: {x: 1.63765, y: 1.64095, z: 0}
+    m_Center: {x: -0.001150012, y: -0.00395, z: 0}
+    m_Extent: {x: 1.64605, y: 1.64315, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -6963,8 +6963,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.00069999695, y: 0.0031499863, z: 0}
-    m_Extent: {x: 6.5675, y: 6.56525, z: 0}
+    m_Center: {x: -0.0013999939, y: 0.0020999908, z: 0}
+    m_Extent: {x: 6.5644, y: 6.565, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -12771,7 +12771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71d18142838a4446a611d5651867aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpawnCount: 7
+  maxSpawnCount: 10
   parent: {fileID: 824443889}
   roots: {fileID: 4699792698954767809, guid: 12df92b8efaae214cb03d83278216bb7, type: 3}
 --- !u!1 &1472611935
@@ -13250,7 +13250,7 @@ MonoBehaviour:
   floatingIslands: {fileID: -4040913077867489215, guid: 095193e43f2f3de4f868d8e7b60de9fe, type: 3}
   checkPoints: {fileID: 3241980655148993372, guid: dbcbd0aee2dbcca458b784de8020194e, type: 3}
   spawnDelay: 5.5
-  checkPointLevel: 7
+  checkPointLevel: 5
 --- !u!66 &1885738533
 CompositeCollider2D:
   m_ObjectHideFlags: 0
