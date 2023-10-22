@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Floating Island
   - Checkpoint
+  - Border
   layers:
   - Default
   - TransparentFX
