@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
         canSpawn = true;
         spawning = false;
         isDead = false;
+        ScoreManager.score = 0;
     }
 
     private void FixedUpdate()
