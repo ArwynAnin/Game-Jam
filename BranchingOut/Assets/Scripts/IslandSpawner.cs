@@ -49,13 +49,16 @@ public class IslandSpawner : SpawnManager
     private FloatingIslands SetPosition(int current)
     {
         target = parent.position;
-        target.x = parent.position.x;
         target.y = Random.Range(2.5f, -3);
 
         islandsSpawned[current].transform.position = target;
-        if (lastSpawned == Vector2.zero && current == 0) return islandsSpawned[current];
+        if (lastSpawned == Vector2.zero)
+        {
+            lastSpawned = target;
+            return islandsSpawned[current];
+        }
 
-        target.x = lastSpawned.x + Random.Range(6.5f, 10);
+        target.x = lastSpawned.x + Random.Range(4.5f, 6.75f);
         islandsSpawned[current].transform.position = target;
 
         lastSpawned = target;
@@ -66,8 +69,8 @@ public class IslandSpawner : SpawnManager
     {
         lastSpawned = target;
         if (checkPointSpawned.IsActive || checkPointSpawned == null) return null;
-        target.x = lastSpawned.x + 10;
-        lastSpawned.x += 10;
+        target.x = lastSpawned.x + 8;
+        lastSpawned.x += 8;
         checkPointSpawned.transform.position = lastSpawned;
 
         return checkPointSpawned;

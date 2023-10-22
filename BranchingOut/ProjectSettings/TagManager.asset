@@ -44,9 +44,6 @@ TagManager:
   - name: Background
     uniqueID: 3371786621
     locked: 0
-  - name: Mountain
-    uniqueID: 2788734737
-    locked: 0
   - name: Scenery
     uniqueID: 688814215
     locked: 0

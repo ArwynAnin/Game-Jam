@@ -42,29 +42,35 @@ public class Player : PlayerMovement
     #region Spawning Methods
     private void SpawnRoots()
     {
-        spawning = Input.GetKey(KeyCode.Alpha1) || Input.GetKey(KeyCode.Alpha2) || Input.GetKey(KeyCode.Alpha3) ? true : false;
+        spawning = (Input.GetKey(KeyCode.Alpha1) || Input.GetKey(KeyCode.Alpha2) || Input.GetKey(KeyCode.Alpha3)) ? true : false;
 
-        if (!spawning && plant != null)
-        {
-            plant.transform.parent = null;
-            Rigidbody2D tempRb = plant.GetComponent<Rigidbody2D>();
-            tempRb.bodyType = RigidbodyType2D.Dynamic;
-            canSpawn = true;
-        }
+        if (!spawning && plant != null) DropSeed();
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) || 
+        if ((Input.GetKeyDown(KeyCode.Alpha1) || 
             Input.GetKeyDown(KeyCode.Alpha2) || 
-            Input.GetKeyDown(KeyCode.Alpha3)) GetSeeds();
+            Input.GetKeyDown(KeyCode.Alpha3)) && canSpawn) GetSeeds();
 
-        if (Input.GetKey(KeyCode.Alpha1)) SpawnMid();
-        else if (Input.GetKey(KeyCode.Alpha2)) SpawnTop();
-        else if (Input.GetKey(KeyCode.Alpha3)) SpawnBot();
+        if (Input.GetKey(KeyCode.Alpha1) && !Input.GetKey(KeyCode.Alpha2) && !Input.GetKey(KeyCode.Alpha3)) SpawnMid();
+        else if (!Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.Alpha2) && !Input.GetKey(KeyCode.Alpha3)) SpawnTop();
+        else if (!Input.GetKey(KeyCode.Alpha1) && !Input.GetKey(KeyCode.Alpha2) && Input.GetKey(KeyCode.Alpha3)) SpawnBot();
+        else DropSeed();
+    }
+
+    private void DropSeed()
+    {
+        if (plant == null) return;
+        Rigidbody2D tempRb = plant.GetComponent<Rigidbody2D>();
+        tempRb.bodyType = RigidbodyType2D.Dynamic;
+        plant.transform.parent = null;
+        canSpawn = true;
+        spawnParticles.SetActive(false);
     }
 
     private void SpawnTop()
     {
-        if (!Input.GetKey(KeyCode.Alpha2) || plant == null) return;
+        if (plant == null) return;
 
+        spawnParticles.SetActive(true);
         canSpawn = false;
 
         Vector3 tilt = plant.transform.localEulerAngles;
@@ -74,7 +80,6 @@ public class Player : PlayerMovement
         // adjust size
         Vector2 size = plant.transform.localScale;
         size.x = Mathf.Clamp(size.x + offset, 0, maxSize);
-        size.y = 0.25f;
         plant.transform.localScale = size;
 
         // adjust position
@@ -86,8 +91,9 @@ public class Player : PlayerMovement
 
     private void SpawnBot()
     {
-        if (!Input.GetKey(KeyCode.Alpha3) || plant == null) return;
+        if (plant == null) return;
 
+        spawnParticles.SetActive(true);
         canSpawn = false;
 
         Vector3 tilt = plant.transform.localEulerAngles;
@@ -97,7 +103,6 @@ public class Player : PlayerMovement
         // adjust size
         Vector2 size = plant.transform.localScale;
         size.x = Mathf.Clamp(size.x + offset, 0, maxSize);
-        size.y = 0.25f;
         plant.transform.localScale = size;
 
         // adjust position
@@ -109,8 +114,9 @@ public class Player : PlayerMovement
 
     private void SpawnMid()
     {
-        if (!Input.GetKey(KeyCode.Alpha1) || plant == null) return;
+        if (plant == null) return;
 
+        spawnParticles.SetActive(true);
         canSpawn = false;
 
         Vector3 tilt = plant.transform.localEulerAngles;
@@ -120,7 +126,6 @@ public class Player : PlayerMovement
         // adjust size
         Vector2 size = plant.transform.localScale;
         size.x = Mathf.Clamp(size.x + offset, 0, maxSize);
-        size.y = 0.25f;
         plant.transform.localScale = size;
 
         // adjust position

@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask layer;
     [Space]
     [SerializeField] protected GameObject deathParticles;
+    [Space]
+    [SerializeField] protected GameObject spawnParticles;
 
     private CapsuleCollider2D collider;
     protected Rigidbody2D player;
@@ -28,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         player = GetComponent<Rigidbody2D>();
         collider = GetComponent<CapsuleCollider2D>();
         deathParticles.SetActive(false);
+        spawnParticles.SetActive(false);
         canSpawn = true;
         spawning = false;
         isDead = false;
@@ -43,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     #region Movements
     private void HorizontalMovement()
     {
-        if (spawning && plant != null || isDead) return;
+        if (!IsGrounded() || spawning && plant != null || isDead) return;
 
         // set horizontal motion so to not affect vertical motion
         Vector2 motion = player.velocity;
@@ -66,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
         float detectionDistance = collider.bounds.extents.y + ray;
 
         // detect ground layer
-        RaycastHit2D hit = Physics2D.Raycast(center, Vector2.down, detectionDistance, layer);
+        RaycastHit2D hit = Physics2D.BoxCast(center, collider.bounds.size, 0, Vector2.down, detectionDistance, layer);
         Color color = hit.collider != null ? Color.green : Color.red;
         Debug.DrawRay(center, Vector2.down * detectionDistance, color);
 
