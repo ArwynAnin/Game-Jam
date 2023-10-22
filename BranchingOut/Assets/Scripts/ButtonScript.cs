@@ -5,29 +5,45 @@ using UnityEngine.SceneManagement;
 
 public class ButtonScript : MonoBehaviour
 {
-    [SerializeField]private float transitionDuration = 1.0f;
-    [SerializeField]private float delayDuration = .5f;
+    public AudioClip sfx;
+    public AudioSource audiosource;
+    public float delay = 1.0f;
 
     public void startgame()
     {
-        SceneManager.LoadScene(1);
+        audiosource.PlayOneShot(sfx);
+        StartCoroutine(delayLoad(1));
     }    
     public void leaderBoard()
     {
-        SceneManager.LoadScene(3);
+        audiosource.PlayOneShot(sfx);
+        StartCoroutine(delayLoad(3));
     }   
     public void gameInfo()
     {
-        SceneManager.LoadScene(4);
+        audiosource.PlayOneShot(sfx);
+        StartCoroutine(delayLoad(4));
     }
 
     public void mainMenu()
     {
-        SceneManager.LoadScene(0);
+        audiosource.PlayOneShot(sfx);
+        StartCoroutine(delayLoad(0));
+    }
+
+    public void settingMenu()
+    {
+        audiosource.PlayOneShot(sfx);
     }
 
     public void quitGame()
     {
         Application.Quit();
+    }
+
+    private IEnumerator delayLoad(int sceneIndex)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(sceneIndex);
     }
 }
